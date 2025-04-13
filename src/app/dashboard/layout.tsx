@@ -20,7 +20,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     <AuthGuard>
       <div className="flex min-h-screen bg-gray-100">
         {/* Sidebar */}
-        <aside className="w-64 bg-white shadow-md relative">
+
+        <aside className="hidden md:block w-64 bg-white shadow-md relative">
           <div className="p-4">
             <Link href="/" className="block mb-4">
               Home
@@ -72,7 +73,36 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6">
+          <div className="flex md:hidden   text-xs items-center">
+            <div className="flex justify-evenly w-full mb-3">
+              <Link href="/" className="block p-2 bg-gray-200">
+                Home
+              </Link>
+              <Link
+                href="/dashboard"
+                className="block p-2 bg-gray-200 hover:bg-gray-200"
+              >
+                Students
+              </Link>
+
+              <Link
+                href="/dashboard/myID"
+                className="block p-2 bg-gray-200 hover:bg-gray-200"
+              >
+                My Card
+              </Link>
+
+              <Link
+                href={`/dashboard/${user?.id}  `}
+                className="block p-2 bg-gray-200 hover:bg-gray-200"
+              >
+                My Profile
+              </Link>
+            </div>
+          </div>
+          {children}
+        </main>
       </div>
     </AuthGuard>
   );

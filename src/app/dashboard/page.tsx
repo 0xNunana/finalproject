@@ -63,11 +63,11 @@ const DashboardHome = () => {
     <div>
       {/* Filter Form */}
       <div className="mb-4">
-        <div className="flex justify-end gap-4">
+        <div className="flex flex-wrap md:justify-end gap-4 sticky top-0 ">
           <select
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
-            className="p-2 rounded border"
+            className="p-2 text-sm md:text-base rounded border w-full md:w-auto"
           >
             <option value="">All Years</option>
             <option value="2022">2022</option>
@@ -79,7 +79,7 @@ const DashboardHome = () => {
           <select
             value={genderFilter}
             onChange={(e) => setGenderFilter(e.target.value)}
-            className="p-2 rounded border"
+            className="p-2 text-sm md:text-base rounded border w-full md:w-auto"
           >
             <option value="">All Genders</option>
             <option value="Male">Male</option>
@@ -91,14 +91,14 @@ const DashboardHome = () => {
             placeholder="Filter by Program"
             value={programFilter.toLowerCase()}
             onChange={(e) => setProgramFilter(e.target.value.toLowerCase())}
-            className="p-2 rounded border"
+            className="p-2  text-sm md:text-base rounded border w-full md:w-auto "
           />
           <input
             type="text"
             placeholder="Filter by Name"
             value={nameFilter}
             onChange={(e) => setNameFilter(e.target.value)}
-            className="p-2 rounded border"
+            className="p-2 text-sm md:text-base rounded border w-full md:w-auto"
           />
           <button
             type="button"
@@ -108,7 +108,7 @@ const DashboardHome = () => {
               setProgramFilter("");
               setNameFilter("");
             }}
-            className="ml-2 px-3 py-1 bg-blue-500 text-white rounded"
+            className="ml-2 px-3 py-1 bg-blue-500 text-white rounded text-sm md:text-base w-full md:w-auto"
           >
             Reset
           </button>
@@ -118,7 +118,7 @@ const DashboardHome = () => {
       {filteredCards?.length === 0 ? (
         <div className="py-20 text-center">No cards match the filters</div>
       ) : (
-        <div className="flex flex-wrap justify-center gap-4 p-6">
+        <div className="flex flex-col   items-center md:flex-row flex-wrap gap-3 md:justify-center">
           {filteredCards?.map((card) => (
             <Link key={card.id} href={`/dashboard/${card.userId}`}>
               <StudentIdCard
