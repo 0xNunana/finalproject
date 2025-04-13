@@ -401,7 +401,7 @@ const MyIDHome = () => {
               studentName={card.fullName}
               year={card.year}
               program={card.program}
-              profileLink=""
+              profileLink={`${window.location.origin}/dashboard/${card.id}`}
             />
           </div>
         </div>

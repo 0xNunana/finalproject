@@ -127,7 +127,7 @@ const DashboardHome = () => {
                 studentName={card.fullName}
                 year={card.year}
                 program={card.program}
-                profileLink={`/dashboard/${card.id}`}
+                profileLink={`${window.location.origin}/dashboard/${card.id}`}
                 gender={card.gender}
               />
             </Link>
