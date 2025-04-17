@@ -4,35 +4,42 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
 
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ firstName, lastName, email, password }),
-    });
-
-    if (response.ok) {
-      // Handle successful registration (e.g., redirect to login)
-      router.push("/login");
-      console.log("User registered successfully");
-    } else if (response.status === 409) {
-      // User already exists, redirect to login
-      router.push("/login");
-    } else {
-      // Handle error (e.g., show error message)
-      const errorData = await response.json();
-      console.error("Registration error:", errorData.error);
+      if (response.ok) {
+        // Handle successful registration (e.g., redirect to login)
+        router.push("/login");
+        console.log("User registered successfully");
+        toast.success("Student registered successfully");
+      } else if (response.status === 409) {
+        // User already exists, redirect to login
+        router.push("/login");
+        toast.error("Student already exists");
+      }
+    } catch (error) {
+      // Handle error (e.g., show error mess
+      toast.error(`${error}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -122,10 +129,37 @@ const RegisterPage = () => {
             />
           </div>
           <button
+            disabled={loading}
             type="submit"
             className="w-full py-2 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-500"
           >
-            Register
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 animate-spin mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Registering...
+              </span>
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
         <p className="text-sm text-center text-gray-600">

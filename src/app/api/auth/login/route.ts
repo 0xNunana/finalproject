@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 
-  // Set the session for the logged-in user
   await setSession({
     userId: user.id,
     firstName: user.firstName,

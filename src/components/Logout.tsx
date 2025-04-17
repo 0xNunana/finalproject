@@ -1,7 +1,10 @@
 import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-const Logout = () => {
+interface LogoutProps {
+  icon?: React.ReactNode;
+}
+const Logout = ({ icon }: LogoutProps) => {
   const queryClient = useQueryClient();
 
   const handleLogout = async () => {
@@ -27,9 +30,9 @@ const Logout = () => {
   return (
     <button
       onClick={handleLogout}
-      className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+      className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
     >
-      Logout
+      {icon && <span className="">{icon}</span>}
     </button>
   );
 };

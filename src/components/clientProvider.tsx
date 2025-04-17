@@ -2,6 +2,7 @@
 import { UserProvider } from "@/context/useUser";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
+import { Toaster } from "./ui/sonner";
 
 const ClientProvider = ({
   children,
@@ -11,7 +12,10 @@ const ClientProvider = ({
   const query = new QueryClient();
   return (
     <QueryClientProvider client={query}>
-      <UserProvider>{children}</UserProvider>;
+      <UserProvider>
+        {children}
+        <Toaster richColors position="top-center" />
+      </UserProvider>
     </QueryClientProvider>
   );
 };

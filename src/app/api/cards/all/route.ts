@@ -9,7 +9,6 @@ export async function GET() {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  // Fetch all cards (add permissions check if needed)
   const cards = await prisma.card.findMany({
     select: {
       id: true,
