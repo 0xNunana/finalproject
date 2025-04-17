@@ -39,7 +39,7 @@ export default function LandingPage() {
           {user ? (
             <Link
               href="/dashboard"
-              className="hover:underline px-3 py-2 rounded-lg"
+              className=" hidden md:block hover:underline px-3 py-2 rounded-lg"
             >
               Dashboard
             </Link>
